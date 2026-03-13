@@ -1,0 +1,30 @@
+Here is a line-by-line breakdown of your Java code, which demonstrates how to create and store SHA-256 password hashes.
+Imports & Class Setup
+
+* import java.util.*;: Imports utility classes like HashSet used in the main method.
+* import java.security.MessageDigest;: Imports the engine used to generate cryptographic hashes (SHA-256).
+* public class Daa {: Defines the main class named Daa.
+
+The hash Method
+This helper function converts a plain-text string into a fixed-length hexadecimal string.
+
+* static String hash(String password)throws Exception{: A static method that takes a password string and may throw an exception if the hashing algorithm isn't found.
+* MessageDigest md=MessageDigest.getInstance("SHA-256");: Initializes the MessageDigest object specifically for the SHA-256 algorithm.
+* byte[] hash=md.digest(password.getBytes());: Converts the password string into bytes, hashes it, and stores the result in a byte array.
+* StringBuilder hex=new StringBuilder();: Creates a mutable string to efficiently build the final hexadecimal output.
+* for(byte b:hash){: Loops through every byte in the hash array.
+* hex.append(String.format("%02x",b));: Converts each byte into a 2-digit hexadecimal value (e.g., 255 becomes ff) and appends it to the string.
+* return hex.toString();: Returns the completed hexadecimal hash string.
+
+The main Method
+
+* public static void main(String[] args)throws Exception {: The entry point of the program.
+* HashSet<String> users=new HashSet<>();: Creates a HashSet to store the hashed passwords. Using a set ensures all stored hashes are unique.
+* users.add(hash("admin123"));: Calls the hash method for "admin123" and adds the resulting hex string to the set.
+* users.add(hash("java123"));: Hashes "java123" and adds it to the set.
+* System.out.println(users);: Prints the list of hashed strings to the console.
+
+------------------------------
+Quick Security Note: In real-world apps, developers usually add "Salt" (random data) to passwords before hashing to protect against rainbow table attacks.
+Would you like to see how to add salting to this code, or should we look at how to verify a user's login attempt?
+
